@@ -1,5 +1,7 @@
 # Connectivity info for Linux VM
 NIXADDR ?= unset
+# Configuration info for Linux VM
+HOST ?= unset
 
 NIXBLOCKDEVICE ?= sda
 
@@ -31,7 +33,16 @@ vm/bootstrap:
 			services.openssh.permitRootLogin = \"yes\";\n \
 			users.users.root.initialPassword = \"root\";\n \
 		' /mnt/etc/nixos/configuration.nix; \
-		cat /mnt/etc/nixos/configuration.nix; \
 		nixos-install --no-root-passwd; \
+		reboot; \
+	"
+
+vm/bootstrap-dotfiles:
+	ssh root@$(NIXADDR) " \
+		mv /etc/nixos /etc/nixos-old; \
+		nix-shell -p git --command 'git clone https://github.com/indiv0/dotfiles /etc/nixos'; \
+		mv /etc/nixos-old/hardware-configuration.nix /etc/nixos/hosts/$(HOST)/hardware-configuration.nix; \
+		rm -r /etc/nixos-old; \
+		NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/hosts/$(HOST)/configuration.nix nixos-rebuild switch; \
 		reboot; \
 	"

@@ -103,6 +103,12 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
  		services.openssh.passwordAuthentication = true;
  		services.openssh.permitRootLogin = "yes";
  		users.users.root.initialPassword = "root";
+		nix.nixPath = [
+			"/root/.nix-defexpr/channels"
+			"nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+			"nixos-config=/etc/nixos/hosts/lab-ca-vm-01/configuration.nix"
+			"/nix/var/nix/profiles/per-user/root/channels"
+		];
  	
 
 }
