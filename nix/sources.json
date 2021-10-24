@@ -1,4 +1,28 @@
 {
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "406eeec0b98903561767ce7aca311034d298d53e",
+        "sha256": "12ny9hzmpqb7g6qyvkajcxs6niq7j71i6md1la1s4rn9r75pzmdm",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/406eeec0b98903561767ce7aca311034d298d53e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "impermanence": {
+        "branch": "master",
+        "description": "Modules to help you handle persistent state on systems with ephemeral root storage [maintainer=@talyz]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "58558845bc68dcf2bb32caa80564f7fe3f6cbc61",
+        "sha256": "10z3g4knkvq838zbfq71pkfyl8cffrpavna448wf5mjscycp0gnv",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/impermanence/archive/58558845bc68dcf2bb32caa80564f7fe3f6cbc61.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
