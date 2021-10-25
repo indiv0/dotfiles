@@ -96,6 +96,13 @@
       fsType = "zfs";
     };
 
+  # Plex data
+  fileSystems."/var/lib/plex" = {
+    device = "/persist/var/lib/plex";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

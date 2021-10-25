@@ -486,9 +486,25 @@ in
 
   networking.firewall.enable = true;
   networking.firewall.allowPing = true;
-  # Allow Samba clients to connect through the firewall.
-  networking.firewall.allowedTCPPorts = [ 445 139 ];
+  # Allow Samba clients to connect through the firewall (ports 445 and 139).
+  # Allow Plex clients to connect through the firewall (other ports).
+  networking.firewall.allowedTCPPorts = [ 445 139 1900 3005 5353 8324 32410 32412 32413 32414 32400 32469 ];
 
   # Create a user which anonymous Samba users will be mapped to.
   users.users.guest.uid = 18277;
+
+  services.plex.enable = true;
+  services.plex.openFirewall = true;
+  services.plex.package = pkgs.plex.overrideAttrs (x: let
+      # See: https://www.plex.tv/media-server-downloads/
+      version = "1.24.4.5081-e362dc1ee";
+    in {
+      name = "plex-${version}";
+      src = pkgs.fetchurl {
+        url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
+        sha256 = "17igy0lq7mjmrw5xq92b57np422x8hj6m8qzjri493yc6fw1cl1m";
+      };
+    }
+  );
+  nixpkgs.config.allowUnfree = true;
 }
