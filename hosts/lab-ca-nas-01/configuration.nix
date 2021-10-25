@@ -8,6 +8,8 @@ let
   secrets = import ../../secrets.nix;
   # Load common configuration data (e.g. public keys).
   data = import ../../data.nix;
+
+  sources = import ../../nix/sources.nix;
 in
 {
   imports = [
@@ -18,7 +20,19 @@ in
     ../../modules/my-smartd.nix
     ../../modules/my-user.nix
     ../../modules/my-zfs.nix
+    # home-manager module
+    "${sources.home-manager}/nixos"
   ];
+
+  home-manager.users.indiv0 = { pkgs, ... }: {
+    imports = [ "${sources.impermanence}/home-manager.nix" ];
+
+    programs.home-manager.enable = true;
+
+    home.persistence."/persist/home/indiv0" = {
+      directories = [ ".ssh" ];
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
