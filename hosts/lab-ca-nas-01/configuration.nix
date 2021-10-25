@@ -186,6 +186,7 @@ in
       authorizedKeys = [
         data.keys.systems.lap-ca-nik-01
         data.keys.systems.phn-ca-nik-01
+        data.keys.systems.srv-ca-jump-01
       ];
     };
     # This will automatically load the ZFS password prompt on login and kill
@@ -329,6 +330,7 @@ in
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDzIn7LY5H1DnrdMXTNdVzpBEMn7WozeCZ8n/1rcTZqT root@lab-ca-kvm-01"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPM+3z4vfZHUaEZPlkQbRiTM9BjL704/aYtX/LruUrIy root@lab-ca-kvm-02"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPJf/REf2Sjmw1YY4SS+05pUclF4wHQ33INr4gi4wBE8 pi@srv-ca-jump-01"
     ];
   };
 
