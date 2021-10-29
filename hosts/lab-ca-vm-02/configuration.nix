@@ -137,6 +137,7 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
     programs.git.enable = true;
     programs.git.userEmail = "nikita.pekin@kandy.io";
     programs.git.userName = "indiv0";
+    programs.git.lfs.enable = true;
   };
 
   # Enables docker, a daemon that manages linux containers.
