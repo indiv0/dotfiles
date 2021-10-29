@@ -39,10 +39,11 @@ vm/bootstrap:
 
 vm/bootstrap-dotfiles:
 	ssh root@$(NIXADDR) " \
-		mv /etc/nixos /etc/nixos-old; \
-		nix-shell -p git --command 'git clone https://github.com/indiv0/dotfiles /etc/nixos'; \
-		mv /etc/nixos-old/hardware-configuration.nix /etc/nixos/hosts/$(HOST)/hardware-configuration.nix; \
-		rm -r /etc/nixos-old; \
+		nix-shell -p git --command 'git clone https://github.com/indiv0/dotfiles /etc/nixos-new'; \
+		cp /etc/nixos/hardware-configuration.nix /etc/nixos-new/hosts/$(HOST)/hardware-configuration.nix; \
+		NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos-new/hosts/$(HOST)/configuration.nix nixos-rebuild switch; \
+		rm -r /etc/nixos; \
+		mv /etc/nixos-new /etc/nixos; \
 		NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/hosts/$(HOST)/configuration.nix nixos-rebuild switch; \
 		reboot; \
 	"
