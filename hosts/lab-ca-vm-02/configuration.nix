@@ -123,10 +123,8 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   # To generate a hash to put in initialHashedPassword you can do this:
   # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
   users.users.npekin.initialPassword = "hunter2";
-  # Give the user permission to run Nix commands.
-  #
-  # Without these permissions, home-manager will not work.
-  nix.allowedUsers = [ "root" "npekin" ];
+  # Add the user to the wheel group so that it has sudo permissions.
+  users.users.npekin.extraGroups = [ "wheel" ];
 
   # Home manager configuration for the non-root user.
   home-manager.users.npekin = { pkgs, ... }: {
