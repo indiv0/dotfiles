@@ -111,5 +111,14 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
 		];
  	
 
+  # Don't allow mutation of users outside of the config.
+  users.mutableUsers = false;
+  # Add a non-root user.
+  users.users.npekin.isNormalUser = true;
+  # Set a user password, consider using initialHashedPassword instead.
+  #
+  # To generate a hash to put in initialHashedPassword you can do this:
+  # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
+  users.users.npekin.initialPassword = "hunter2";
 }
 
