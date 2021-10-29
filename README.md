@@ -32,7 +32,13 @@ Intel machine you will not end up with an aarch64 NixOS ISO.
 5. **Optional:** Take a snapshot here if you want to try this multiple times.
 6. Set `NIXADDR=<ip address of VM>` and run `make vm/bootstrap`. This will
    bootstrap your machine and automatically reboot the VM.
-7. **Optional:** Instead of step 6, set `NIXADDR=<ip address of VM>` and
-   `HOST=<desired host config>` and run `make vm/bootstrap-dotfiles`. This
-   will bootstrap your machine with the dotfiles for that machine and
-   automatically reboot the VM.
+7. **Optional:** Instead of step 6, set `NIXADDR=<ip address of VM>`,
+   `USER=<desired username>`, and`HOST=<desired host config>` and run
+   `make vm/bootstrap-dotfiles`. This will bootstrap your machine with the
+   dotfiles for that machine and automatically reboot the VM.
+8. Log in to the VM as your desired user and generate an SSH key, then upload
+   it to GitHub:
+   ```shell
+   $ ssh-keygen -t ed25519
+   $ cat ~/.ssh/id_ed25519.pub
+   ```
