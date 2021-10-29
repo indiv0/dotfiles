@@ -11,6 +11,18 @@
         "url": "https://github.com/nix-community/home-manager/archive/f5395026bf5c77d83fff17152b1403d50c9f05f1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "home-manager-master": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "cf4866d2187399117d3aed47a58e6f8ef58e5afd",
+        "sha256": "1v248bx6pq6wpkvxlpwlab6a03njwhf4pf6wvfrzxxgzwg3gh5mk",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/cf4866d2187399117d3aed47a58e6f8ef58e5afd.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "impermanence": {
         "branch": "master",
         "description": "Modules to help you handle persistent state on systems with ephemeral root storage [maintainer=@talyz]",

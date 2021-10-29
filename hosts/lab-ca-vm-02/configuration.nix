@@ -12,7 +12,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # home-manager module
-      "${sources.home-manager}/nixos"
+      "${sources.home-manager-master}/nixos"
     ];
 
   # Use the systemd-boot EFI boot loader.
