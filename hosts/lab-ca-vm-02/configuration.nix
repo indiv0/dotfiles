@@ -121,8 +121,13 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   # To generate a hash to put in initialHashedPassword you can do this:
   # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
   users.users.npekin.initialPassword = "hunter2";
-  # Add the user to the wheel group so that it has sudo permissions.
-  users.users.npekin.extraGroups = [ "wheel" ];
+  users.users.npekin.extraGroups = [
+    # Add the user to the wheel group so that they have sudo permissions.
+    "wheel"
+    # Add the user to the docker group so that they can interact with the
+    # docker daemon.
+    "docker"
+  ];
 
   # Home manager configuration for the non-root user.
   home-manager.users.npekin = { pkgs, ... }: {
@@ -133,5 +138,21 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
     programs.git.userEmail = "nikita.pekin@kandy.io";
     programs.git.userName = "indiv0";
   };
+
+  # Enables docker, a daemon that manages linux containers.
+  #
+  # Users in the "docker" group can interact with the daemon (e.g. to start
+  # or stop containers) using the `docker` command line tool.
+  virtualisation.docker.enable = true;
+  # Start dockerd on boot.
+  #
+  # This is required for containers which are created with the
+  # `--restart=always` flag to work.
+  virtualisation.docker.enableOnBoot = true;
+  # Periodically prune Docker resources.
+  #
+  # If enabled, a systemd timer will run `docker system prune -f` as
+  # specified by the `dates` option.
+  virtualisation.docker.autoPrune.enable = true;
 }
 
