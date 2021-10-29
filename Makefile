@@ -47,5 +47,6 @@ vm/bootstrap-dotfiles:
 		mv /etc/nixos-new /etc/nixos; \
 		NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/hosts/$(HOST)/configuration.nix nixos-rebuild switch; \
 		chown -R $(USER):users /etc/nixos; \
+		nix-shell -p git --command 'cd /etc/nixos && git remote set-url origin git@github.com:indiv0/dotfiles'; \
 		reboot; \
 	"
