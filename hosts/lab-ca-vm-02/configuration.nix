@@ -4,10 +4,15 @@
 
 { config, pkgs, ... }:
 
+let
+  sources = import ../../nix/sources.nix;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # home-manager module
+      "${sources.home-manager}/nixos"
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -120,5 +125,15 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   # To generate a hash to put in initialHashedPassword you can do this:
   # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
   users.users.npekin.initialPassword = "hunter2";
+
+  # Home manager configuration for the non-root user.
+  home-manager.users.npekin = { pkgs, ... }: {
+    programs.home-manager.enable = true;
+
+    # Enable & configure git.
+    programs.git.enable = true;
+    programs.git.userEmail = "nikita.pekin@kandy.io";
+    programs.git.userName = "indiv0";
+  };
 }
 
