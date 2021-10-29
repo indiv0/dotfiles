@@ -2,6 +2,7 @@
 NIXADDR ?= unset
 # Configuration info for Linux VM
 HOST ?= unset
+USER ?= unset
 
 NIXBLOCKDEVICE ?= sda
 
@@ -45,5 +46,6 @@ vm/bootstrap-dotfiles:
 		rm -r /etc/nixos; \
 		mv /etc/nixos-new /etc/nixos; \
 		NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/hosts/$(HOST)/configuration.nix nixos-rebuild switch; \
+		chown -R $(USER):users /etc/nixos; \
 		reboot; \
 	"
