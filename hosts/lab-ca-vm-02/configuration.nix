@@ -150,5 +150,8 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   # If enabled, a systemd timer will run `docker system prune -f` as
   # specified by the `dates` option.
   virtualisation.docker.autoPrune.enable = true;
+
+  # Enable Font/DPI configuration optimized for HiDPI displays.
+  hardware.video.hidpi.enable = true;
 }
 
