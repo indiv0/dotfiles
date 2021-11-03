@@ -145,11 +145,6 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   # Users in the "docker" group can interact with the daemon (e.g. to start
   # or stop containers) using the `docker` command line tool.
   virtualisation.docker.enable = true;
-  # Start dockerd on boot.
-  #
-  # This is required for containers which are created with the
-  # `--restart=always` flag to work.
-  virtualisation.docker.enableOnBoot = true;
   # Periodically prune Docker resources.
   #
   # If enabled, a systemd timer will run `docker system prune -f` as
