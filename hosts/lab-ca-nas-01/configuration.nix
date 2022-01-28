@@ -531,8 +531,31 @@ in
   # Configure an NGINX instance.
   services.nginx = {
     enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    # Only allow PFS-enabled ciphers with AES256.
+    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+    commonHttpConfig = ''
+      # Enable CSP for your services.
+      add_header Content-Security-Policy "script-src 'self'; object-src 'none'; base-uri 'none'";
+
+      # Minimize information leaked to other domains.
+      add_header 'Referrer-Policy' 'origin-when-cross-origin';
+
+      # Disable embedding as a frame.
+      add_header X-Frame-Options DENY;
+
+      # Prevent injection of code in other mime types (XSS Attacks).
+      add_header X-Content-Type-Options nosniff;
+
+      # Enable XSS protection of the browser.
+      # May be unnecessary when CSP is configured properly.
+      add_header X-XSS-Protection "1; mode=block";
+
+      proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
+    '';
     virtualHosts."jellyfin.frecency.com" = {
       forceSSL = true;
       sslCertificate = "/etc/letsencrypt/live/jellyfin.frecency.com/fullchain.pem";
