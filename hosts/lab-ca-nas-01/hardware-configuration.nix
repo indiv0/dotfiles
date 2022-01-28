@@ -115,6 +115,13 @@
     options = [ "bind" ];
   };
 
+  # Let's Encrypt SSL certs
+  fileSystems."/etc/letsencrypt" = {
+    device = "/persist/etc/letsencrypt";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

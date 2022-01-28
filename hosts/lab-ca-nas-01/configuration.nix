@@ -486,10 +486,12 @@ in
 
   networking.firewall.enable = true;
   networking.firewall.allowPing = true;
+  # Allow NGINX through the firewall (ports 80 and 443).
   # Allow Samba clients to connect through the firewall (ports 445 and 139).
   # Allow Jellyfin clients to connect through the firewall (ports 8096 and 8920).
   # Allow Plex clients to connect through the firewall (ports 3005, 32400, 8324, 32469).
   networking.firewall.allowedTCPPorts = [
+    80 443
     445 139
     8096 8920
     3005 8324 32400 32469
@@ -525,4 +527,38 @@ in
   users.groups.media = {};
   # Configure Jellyfin to use the "media" group.
   services.jellyfin.group = "media";
+
+  # Configure an NGINX instance.
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    virtualHosts."jellyfin.frecency.com" = {
+      forceSSL = true;
+      sslCertificate = "/etc/letsencrypt/live/jellyfin.frecency.com/fullchain.pem";
+      sslCertificateKey = "/etc/letsencrypt/live/jellyfin.frecency.com/privkey.pem";
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8096";
+        extraConfig =
+          # Disable buffering when the NGINX proxy gets very resource heavy
+          # upon streaming.
+          "proxy_buffering off;" +
+          "proxy_set_header X-Forwarded-Protocol $scheme;"
+        ;
+      };
+      locations."= /web/" = {
+        proxyPass = "http://127.0.0.1:8096/web/index.html";
+        extraConfig =
+          "proxy_set_header X-Forwarded-Protocol $scheme;"
+        ;
+      };
+      locations."/socket" = {
+        proxyPass = "http://127.0.0.1:8096";
+        proxyWebsockets = true;
+        extraConfig =
+          "proxy_set_header X-Forwarded-Protocol $scheme;"
+        ;
+      };
+    };
+  };
 }
