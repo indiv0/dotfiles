@@ -560,6 +560,7 @@ in
       forceSSL = true;
       sslCertificate = "/etc/letsencrypt/live/jellyfin.frecency.com/fullchain.pem";
       sslCertificateKey = "/etc/letsencrypt/live/jellyfin.frecency.com/privkey.pem";
+      sslTrustedCertificate = "/etc/letsencrypt/live/jellyfin.frecency.com/chain.pem";
       locations."/" = {
         proxyPass = "http://127.0.0.1:8096";
         extraConfig =
