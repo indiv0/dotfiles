@@ -487,8 +487,19 @@ in
   networking.firewall.enable = true;
   networking.firewall.allowPing = true;
   # Allow Samba clients to connect through the firewall (ports 445 and 139).
-  # Allow Plex clients to connect through the firewall (other ports).
-  networking.firewall.allowedTCPPorts = [ 445 139 1900 3005 5353 8324 32410 32412 32413 32414 32400 32469 ];
+  # Allow Jellyfin clients to connect through the firewall (ports 8096 and 8920).
+  # Allow Plex clients to connect through the firewall (ports 3005, 32400, 8324, 32469).
+  networking.firewall.allowedTCPPorts = [
+    445 139
+    8096 8920
+    3005 8324 32400 32469
+  ];
+  # Allow Jellyfin clients to connect through the firewall (ports 1900 7359).
+  # Allow Plex clients to connect through the firewall (ports 1900, 5353, 32410, 32412, 32413, 32414).
+  networking.firewall.allowedUDPPorts = [
+    1900 7359
+    5353 32410 32412 32413 32414
+  ];
 
   # Create a user which anonymous Samba users will be mapped to.
   users.users.guest.uid = 18277;
@@ -507,4 +518,11 @@ in
     }
   );
   nixpkgs.config.allowUnfree = true;
+
+  # Enable Jellyfin media server.
+  services.jellyfin.enable = true;
+  # Create a media group for allowing Plex & Jellyfin to access my files.
+  users.groups.media = {};
+  # Configure Jellyfin to use the "media" group.
+  services.jellyfin.group = "media";
 }

@@ -103,6 +103,18 @@
     options = [ "bind" ];
   };
 
+  # Jellyfin data
+  fileSystems."/var/lib/jellyfin" = {
+    device = "/persist/var/lib/jellyfin";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+  fileSystems."/var/cache/jellyfin" = {
+    device = "/persist/var/cache/jellyfin";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
