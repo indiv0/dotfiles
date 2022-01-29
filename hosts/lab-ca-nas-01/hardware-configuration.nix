@@ -105,7 +105,7 @@
 
   # Jellyfin data
   fileSystems."/var/lib/jellyfin" = {
-    device = "/persist/var/lib/jellyfin";
+    device = "/local/storage/var/lib/jellyfin";
     fsType = "none";
     options = [ "bind" ];
   };
